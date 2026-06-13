@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaZibn • Original Paintings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+        }
+        
+        .art-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .art-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+        
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+        
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center text-zinc-950 font-bold text-xl">α</div>
+                <h1 class="heading-font text-3xl tracking-tight">AlphaZibn</h1>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-10 text-lg">
+                <a href="#shop" class="hover:text-amber-400 transition-colors">Shop</a>
+                <a href="#about" class="hover:text-amber-400 transition-colors">About</a>
+                <a href="#contact" class="hover:text-amber-400 transition-colors">Contact</a>
+            </nav>
+            
+            <div class="flex items-center gap-6">
+                <button onclick="toggleCart()" class="relative hover:text-amber-400 transition-colors">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-amber-500 text-zinc-950 text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 py-4">
+            <div class="flex flex-col px-6 gap-6 text-lg">
+                <a href="#shop" class="hover:text-amber-400">Shop</a>
+                <a href="#about" class="hover:text-amber-400">About</a>
+                <a href="#contact" class="hover:text-amber-400">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-bg h-screen flex items-center relative">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="heading-font text-7xl md:text-8xl font-bold tracking-tighter mb-6">AlphaZibn</h2>
+            <p class="text-2xl md:text-3xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+                Original paintings that capture emotion, power and mystery
+            </p>
+            <a href="#shop" 
+               class="inline-block bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold text-xl px-12 py-5 rounded-full transition-all active:scale-95">
+                Browse Collection
+            </a>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <p class="text-sm tracking-widest mb-2">SCROLL TO EXPLORE</p>
+            <i class="fa-solid fa-chevron-down text-2xl animate-bounce"></i>
+        </div>
+    </section>
+
+    <!-- SHOP / GALLERY -->
+    <section id="shop" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="heading-font text-5xl font-bold">Collection</h2>
+                <p class="text-zinc-400 mt-2">Original artworks • Ships worldwide</p>
+            </div>
+            <div class="text-sm text-zinc-500">Showing 8 pieces</div>
+        </div>
+
+        <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Paintings will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="bg-zinc-900 py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="heading-font text-5xl font-bold mb-8">The Artist</h2>
+                    <div class="prose prose-zinc prose-invert">
+                        <p class="text-lg leading-relaxed">
+                            AlphaZibn — это художественный псевдоним Валерия Кудзиева. 
+                            Мои картины — это исследование силы, тьмы и человеческой природы. 
+                            Каждый холст создан вручную с использованием масляных красок и глубоких текстур.
+                        </p>
+                        <p class="text-lg leading-relaxed mt-6">
+                            Вдохновение черпаю из кинематографа, ночных городов и личных переживаний. 
+                            Каждая работа — уникальна и существует только в одном экземпляре.
+                        </p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://picsum.photos/id/64/800/1000" 
+                         alt="Artist" 
+                         class="rounded-2xl shadow-2xl">
+                    <div class="absolute -bottom-6 -right-6 bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                        <p class="text-amber-400 text-sm">Est. 2026</p>
+                        <p class="text-3xl font-light">Florida, USA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="heading-font text-5xl font-bold mb-6">Get in Touch</h2>
+            <p class="text-zinc-400 mb-12">Interested in a painting or commission? Write me.</p>
+            
+            <form id="contact-form" class="space-y-8 text-left">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" placeholder="Your name" 
+                           class="bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
+                    <input type="email" placeholder="Email address" 
+                           class="bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
+                </div>
+                <textarea placeholder="Message..." rows="6"
+                          class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500"></textarea>
+                <button type="button" onclick="submitForm()"
+                        class="w-full bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold py-5 rounded-2xl text-xl transition-all">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 text-center text-zinc-500">
+            <div class="flex justify-center gap-8 mb-8 text-2xl">
+                <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-vk"></i></a>
+            </div>
+            <p>© 2026 AlphaZibn. All artworks are original and unique.</p>
+            <p class="text-xs mt-2">Handcrafted with passion in Florida</p>
+        </div>
+    </footer>
+
+    <!-- PAINTING MODAL -->
+    <div id="painting-modal" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">
+        <div class="modal bg-zinc-900 max-w-4xl w-full rounded-3xl overflow-hidden">
+            <div class="flex justify-end p-4">
+                <button onclick="closeModal()" class="text-3xl hover:text-amber-400">×</button>
+            </div>
+            <div class="px-8 pb-8 grid md:grid-cols-2 gap-10">
+                <div id="modal-image" class="aspect-square bg-zinc-800 rounded-2xl"></div>
+                <div>
+                    <h3 id="modal-title" class="heading-font text-4xl font-bold"></h3>
+                    <p id="modal-price" class="text-3xl text-amber-400 mt-3"></p>
+                    <p id="modal-description" class="mt-8 text-zinc-400 leading-relaxed"></p>
+                    
+                    <div class="mt-10">
+                        <button onclick="addCurrentToCart()" 
+                                class="w-full bg-amber-500 hover:bg-amber-600 text-zinc-950 py-5 rounded-2xl text-xl font-semibold">
+                            Add to Cart — Free Shipping
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART DRAWER -->
+    <div id="cart-drawer" class="hidden fixed right-0 top-0 h-full w-full max-w-md bg-zinc-900 shadow-2xl z-[200] translate-x-full transition-transform">
+        <div class="h-full flex flex-col">
+            <div class="p-6 border-b border-zinc-700 flex justify-between items-center">
+                <h3 class="text-2xl font-semibold">Your Cart</h3>
+                <button onclick="toggleCart()" class="text-3xl">×</button>
+            </div>
+            
+            <div id="cart-items" class="flex-1 p-6 overflow-auto"></div>
+            
+            <div class="p-6 border-t border-zinc-700">
+                <div class="flex justify-between text-xl mb-6">
+                    <span>Total</span>
+                    <span id="cart-total" class="font-semibold">$0</span>
+                </div>
+                <button onclick="checkout()" 
+                        class="w-full bg-white text-zinc-950 py-5 rounded-2xl font-semibold text-xl">
+                    Proceed to Checkout
+                </button>
+                <p class="text-center text-xs text-zinc-500 mt-4">Secure checkout • 30-day return</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample paintings data
+        let paintings = [
+            {
+                id: 1,
+                title: "Midnight Guardian",
+                price: 2450,
+                image: "https://picsum.photos/id/1015/800/800",
+                description: "A powerful portrait in dramatic chiaroscuro. Oil on canvas, 120×90 cm."
+            },
+            {
+                id: 2,
+                title: "Neon Requiem",
+                price: 1800,
+                image: "https://picsum.photos/id/133/800/800",
+                description: "Rain-soaked cyber-noir cityscape. Oil on canvas, 100×70 cm."
+            },
+            {
+                id: 3,
+                title: "The Last Crown",
+                price: 3200,
+                image: "https://picsum.photos/id/201/800/800",
+                description: "Symbolic composition about power and fragility. 130×100 cm."
+            },
+            {
+                id: 4,
+                title: "Echoes in the Void",
+                price: 1350,
+                image: "https://picsum.photos/id/251/800/800",
+                description: "Abstract emotional landscape. Oil on canvas, 80×80 cm."
+            },
+            {
+                id: 5,
+                title: "Scarlet Oath",
+                price: 2900,
+                image: "https://picsum.photos/id/316/800/800",
+                description: "Dramatic figure in red tones. 110×90 cm."
+            },
+            {
+                id: 6,
+                title: "Silent Throne",
+                price: 2100,
+                image: "https://picsum.photos/id/367/800/800",
+                description: "Minimalist interior with strong presence. 100×80 cm."
+            }
+        ];
+
+        let cart = [];
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            paintings.forEach(painting => {
+                const card = document.createElement('div');
+                card.className = 'art-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer';
+                card.innerHTML = `
+                    <div class="aspect-square overflow-hidden">
+                        <img src="${painting.image}" 
+                             class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="heading-font text-2xl font-semibold">${painting.title}</h3>
+                        <p class="text-amber-400 text-2xl mt-2">$${painting.price}</p>
+                    </div>
+                `;
+                card.onclick = () => showPaintingModal(painting);
+                gallery.appendChild(card);
+            });
+        }
+
+        let currentPainting = null;
+
+        function showPaintingModal(painting) {
+            currentPainting = painting;
+            document.getElementById('modal-image').innerHTML = `
+                <img src="${painting.image}" class="w-full h-full object-cover rounded-2xl">
+            `;
+            document.getElementById('modal-title').textContent = painting.title;
+            document.getElementById('modal-price').textContent = `$${painting.price}`;
+            document.getElementById('modal-description').textContent = painting.description;
+            document.getElementById('painting-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('painting-modal').classList.add('hidden');
+        }
+
+        function addCurrentToCart() {
+            if (!currentPainting) return;
+            addToCart(currentPainting);
+            closeModal();
+        }
+
+        function addToCart(painting) {
+            cart.push(painting);
+            updateCartCount();
+            
+            // Toast
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-6 right-6 bg-green-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3";
+            toast.innerHTML = `✅ ${painting.title} added to cart`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                setTimeout(() => drawer.classList.remove('translate-x-full'), 10);
+                renderCart();
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('hidden'), 300);
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-zinc-400 py-20">Your cart is empty</p>`;
+                document.getElementById('cart-total').textContent = '$0';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item flex gap-4 mb-8';
+                div.innerHTML = `
+                    <img src="${item.image}" class="w-24 h-24 object-cover rounded-2xl">
+                    <div class="flex-1">
+                        <h4 class="font-medium">${item.title}</h4>
+                        <p class="text-amber-400">$${item.price}</p>
+                        <button onclick="removeFromCart(${index})" 
+                                class="text-red-400 text-sm mt-2 hover:underline">Remove</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            
+            document.getElementById('cart-total').textContent = `$${total}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            alert("🎉 Thank you! This is a demo. In real site we would connect Stripe/PayPal here.");
+            cart = [];
+            updateCartCount();
+            toggleCart();
+        }
+
+        function submitForm() {
+            alert("✅ Message sent! (demo mode)");
+            document.getElementById('contact-form').reset();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Initialize
+        window.onload = function() {
+            renderGallery();
+            updateCartCount();
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    const modal = document.getElementById('painting-modal');
+                    if (!modal.classList.contains('hidden')) closeModal();
+                    
+                    const drawer = document.getElementById('cart-drawer');
+                    if (!drawer.classList.contains('hidden')) toggleCart();
+                }
+            });
+        };
+    </script>
+</body>
+</html>
