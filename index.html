@@ -46,23 +46,35 @@
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.98);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
         .modal-content {
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             background: #18181b;
             border-radius: 12px;
             overflow: hidden;
+            position: relative;
         }
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            display: block;
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 42px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(0,0,0,0.6);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -81,12 +93,10 @@
     <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <div style="padding:15px; text-align:right; background:#111;">
-                <span onclick="closeModal()" style="font-size:40px; cursor:pointer; color:#888;">×</span>
-            </div>
-            <img id="modal-image" alt="">
-            <div style="padding:25px;">
-                <h3 id="modal-title" style="font-size:1.8rem; margin-bottom:8px;"></h3>
+            <div class="close-btn" onclick="closeModal()">×</div>
+            <img id="modal-image" style="width:100%; display:block;" alt="">
+            <div style="padding:25px; background:#18181b;">
+                <h3 id="modal-title" style="font-size:1.9rem; margin-bottom:8px;"></h3>
                 <p id="modal-price" style="color:#c084fc; font-size:1.7rem;"></p>
             </div>
         </div>
@@ -140,6 +150,13 @@
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
+
+        // Close modal when clicking outside the image
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
