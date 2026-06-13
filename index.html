@@ -4,174 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlphaZibn • Surreal Visions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
-        
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: #0a0a0a;
-            color: #e5e5e5;
-            margin: 0;
-            padding: 0;
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0a0a0a; 
+            color: #eee; 
+            margin: 0; 
+            padding: 0; 
         }
-        .heading { font-family: 'Playfair Display', serif; }
-        
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)), url('https://i.imgur.com/GbIHN4w.jpg') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+                        url('https://i.imgur.com/GbIHN4w.jpg') center/cover; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
         }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 60px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            padding: 60px 20px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
         }
-        
-        .card {
-            background: #18181b;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s;
-            cursor: pointer;
+        .card { 
+            background: #1f1f1f; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            cursor: pointer; 
         }
-        .card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-        }
-        .card img {
-            width: 100%;
-            height: 360px;
-            object-fit: cover;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        .card:hover { transform: scale(1.05); }
+        .card img { width: 100%; height: 380px; object-fit: cover; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header style="position: sticky; top: 0; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #333; z-index: 100;">
-        <div style="max-width: 1400px; margin: 0 auto; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #a855f7, #f59e0b); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: white;">α</div>
-                <h1 class="heading" style="font-size: 28px;">AlphaZibn</h1>
-            </div>
-            <nav style="display: flex; gap: 32px; font-size: 18px;">
-                <a href="#shop" style="color: #ddd; text-decoration: none;">Collection</a>
-                <a href="#about" style="color: #ddd; text-decoration: none;">About</a>
-                <a href="#contact" style="color: #ddd; text-decoration: none;">Contact</a>
-            </nav>
-            <div onclick="toggleCart()" style="cursor: pointer; font-size: 28px;">🛒 <span id="cart-count" style="background:#a855f7; color:white; font-size:12px; padding:2px 8px; border-radius:50%;">0</span></div>
-        </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
+    <div class="hero">
         <div>
-            <h1 class="heading" style="font-size: 5rem; margin-bottom: 20px; color: white;">AlphaZibn</h1>
-            <p style="font-size: 1.8rem; margin-bottom: 40px; color: #ccc;">Surreal Cosmic Visions</p>
-            <a href="#shop" style="background: linear-gradient(to right, #a855f7, #f59e0b); color: black; padding: 18px 52px; border-radius: 9999px; font-size: 1.4rem; text-decoration: none; font-weight: 600;">Browse Collection</a>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="shop" class="gallery">
-        <!-- Filled by JS -->
-    </section>
-
-    <!-- MODAL -->
-    <div id="modal" class="modal">
-        <div style="background: #18181b; max-width: 900px; width: 100%; border-radius: 20px; overflow: hidden;">
-            <div style="padding: 15px; text-align: right;">
-                <span onclick="closeModal()" style="font-size: 42px; cursor: pointer; color: #777;">×</span>
-            </div>
-            <div style="padding: 0 40px 40px;">
-                <img id="modal-image" style="width: 100%; border-radius: 12px;" alt="">
-                <h3 id="modal-title" class="heading" style="font-size: 2.4rem; margin: 25px 0 8px;"></h3>
-                <p id="modal-price" style="color: #c084fc; font-size: 1.9rem;"></p>
-                <p id="modal-desc" style="margin-top: 20px; color: #bbb; font-size: 1.15rem;"></p>
-                <button onclick="addToCart()" style="margin-top: 35px; width: 100%; padding: 20px; background: linear-gradient(to right, #a855f7, #f59e0b); color: black; border: none; font-size: 1.3rem; border-radius: 9999px; cursor: pointer; font-weight: 600;">
-                    Add to Cart
-                </button>
-            </div>
+            <h1 style="font-size: 4.8rem; color: white; margin-bottom: 20px;">AlphaZibn</h1>
+            <p style="font-size: 1.8rem; margin-bottom: 40px;">Surreal Cosmic Visions</p>
+            <a href="#shop" style="background:#c084fc; color:black; padding:20px 50px; border-radius:50px; font-size:1.4rem; text-decoration:none; display:inline-block;">
+                Browse Collection
+            </a>
         </div>
     </div>
 
+    <section id="shop" class="gallery">
+        <!-- Картины будут здесь -->
+    </section>
+
     <script>
+        console.log("✅ JavaScript работает!");
+
         const paintings = [
-            { title: "Cosmic Fracture", price: 3200, img: "https://i.imgur.com/AF4KG1u.jpg", desc: "Разбитая планета сознания" },
-            { title: "Eye of the Vortex", price: 2800, img: "https://i.imgur.com/EEOQNNJ.jpg", desc: "Водоворот глаз" },
-            { title: "The Void Prophet", price: 3500, img: "https://i.imgur.com/GbIHN4w.jpg", desc: "Пророк пустоты" },
-            { title: "Multiversal Mind", price: 2950, img: "https://i.imgur.com/bYa67XG.jpg", desc: "Многоглазый разум" },
-            { title: "Framed Eternity", price: 2450, img: "https://i.imgur.com/TBcUee7.jpg", desc: "Портрет вечности" },
-            { title: "Devouring Cosmos", price: 3100, img: "https://i.imgur.com/N9cTjGr.jpg", desc: "Поглощающий космос" },
-            { title: "Celestial Embrace", price: 2700, img: "https://i.imgur.com/Q13UqiZ.jpg", desc: "Небесные объятия" },
-            { title: "Symphony of Madness", price: 3800, img: "https://i.imgur.com/rlbRcTr.jpg", desc: "Симфония безумия" },
-            { title: "Architect of Dreams", price: 2900, img: "https://i.imgur.com/P06MY6x.jpg", desc: "Архитектор снов" },
-            { title: "The Last Gate", price: 3300, img: "https://i.imgur.com/errVUy7.jpg", desc: "Последние врата" }
+            { title: "Cosmic Fracture", price: 3200, img: "https://i.imgur.com/AF4KG1u.jpg" },
+            { title: "Eye of the Vortex", price: 2800, img: "https://i.imgur.com/EEOQNNJ.jpg" },
+            { title: "The Void Prophet", price: 3500, img: "https://i.imgur.com/GbIHN4w.jpg" },
+            { title: "Multiversal Mind", price: 2950, img: "https://i.imgur.com/bYa67XG.jpg" },
+            { title: "Framed Eternity", price: 2450, img: "https://i.imgur.com/TBcUee7.jpg" },
+            { title: "Devouring Cosmos", price: 3100, img: "https://i.imgur.com/N9cTjGr.jpg" },
+            { title: "Celestial Embrace", price: 2700, img: "https://i.imgur.com/Q13UqiZ.jpg" },
+            { title: "Symphony of Madness", price: 3800, img: "https://i.imgur.com/rlbRcTr.jpg" }
         ];
 
-        function renderGallery() {
-            const container = document.getElementById('gallery');
-            container.innerHTML = '';
-            
-            paintings.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="${p.img}" alt="${p.title}">
-                    <div style="padding: 24px;">
-                        <h3 class="heading" style="font-size: 1.65rem;">${p.title}</h3>
-                        <p style="color: #c084fc; font-size: 1.6rem; margin: 12px 0;">$${p.price}</p>
-                        <p style="color: #888;">${p.desc}</p>
-                    </div>
-                `;
-                card.onclick = () => showModal(p);
-                container.appendChild(card);
+        const gallery = document.getElementById('gallery');
+
+        paintings.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.title}">
+                <div style="padding: 25px;">
+                    <h3 style="font-size: 1.6rem;">${p.title}</h3>
+                    <p style="color: #c084fc; font-size: 1.7rem; margin: 10px 0;">$${p.price}</p>
+                </div>
+            `;
+            // Важно: добавляем клик
+            card.addEventListener('click', () => {
+                alert(`Вы выбрали: ${p.title} — $${p.price}\n\n(Здесь будет открываться большое окно с картиной)`);
             });
-        }
+            gallery.appendChild(card);
+        });
 
-        let current = null;
-        function showModal(p) {
-            current = p;
-            document.getElementById('modal-image').src = p.img;
-            document.getElementById('modal-title').textContent = p.title;
-            document.getElementById('modal-price').textContent = '$' + p.price;
-            document.getElementById('modal-desc').textContent = p.desc;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        function addToCart() {
-            alert(`✅ ${current.title} добавлен в корзину!`);
-            closeModal();
-        }
-
-        function toggleCart() {
-            alert("🛒 Корзина (демо-режим). В следующей версии добавим настоящую оплату.");
-        }
-
-        window.onload = renderGallery;
+        alert("✅ Сайт загружен! Попробуй нажать на картины.");
     </script>
 </body>
 </html>
