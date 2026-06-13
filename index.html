@@ -23,21 +23,40 @@
         }
         .gallery { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            padding: 60px 20px; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 40px; 
+            padding: 80px 20px; 
             max-width: 1600px; 
             margin: 0 auto; 
         }
         .card { 
-            background: #1f1f1f; 
-            border-radius: 16px; 
+            background: #1a1a1a; 
+            border-radius: 8px; 
             overflow: hidden; 
             cursor: pointer; 
-            transition: 0.4s; 
+            transition: all 0.4s; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-        .card:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .card img { width: 100%; height: 380px; object-fit: cover; }
+        .card:hover { 
+            transform: scale(1.04); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+        }
+        /* Рамка картины */
+        .frame {
+            padding: 20px;
+            background: linear-gradient(#2a2a2a, #111);
+            border: 12px solid #1f1f1f;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.8),
+                0 0 0 8px #111;
+        }
+        .frame img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+        }
     </style>
 </head>
 <body>
@@ -77,13 +96,15 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <img src="${p.img}" alt="${p.title}">
-                    <div style="padding:25px;">
+                    <div class="frame">
+                        <img src="${p.img}" alt="${p.title}">
+                    </div>
+                    <div style="padding: 22px 25px;">
                         <h3 style="margin-bottom:8px;">${p.title}</h3>
-                        <p style="color:#c084fc; font-size:1.7rem;">$${p.price}</p>
+                        <p style="color:#c084fc; font-size:1.65rem;">$${p.price}</p>
                     </div>
                 `;
-                card.onclick = () => alert(`✅ Выбрано: ${p.title}\nЦена: $${p.price}\n\n(Здесь будет большое модальное окно)`);
+                card.onclick = () => alert(`Выбрано: ${p.title}\nЦена: $${p.price}\n\n(Скоро здесь будет большое модальное окно)`);
                 gallery.appendChild(card);
             });
         });
