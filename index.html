@@ -8,7 +8,7 @@
         body { font-family: Arial, sans-serif; background:#0a0a0a; color:#eee; margin:0; padding:0; }
         .hero { height:100vh; background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.9)), url('https://i.imgur.com/GbIHN4w.jpg') center/cover; display:flex; align-items:center; justify-content:center; text-align:center; }
         .gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:30px; padding:60px 20px; max-width:1400px; margin:0 auto; }
-        .card { background:#1f1f1f; border-radius:16px; overflow:hidden; cursor:pointer; }
+        .card { background:#1f1f1f; border-radius:16px; overflow:hidden; cursor:pointer; transition:0.3s; }
         .card:hover { transform:scale(1.05); }
         .card img { width:100%; height:380px; object-fit:cover; }
     </style>
@@ -26,24 +26,26 @@
     <section id="shop" class="gallery"></section>
 
     <script>
-        const paintings = [
-            {title:"Cosmic Fracture", price:3200, img:"https://i.imgur.com/AF4KG1u.jpg"},
-            {title:"Eye of the Vortex", price:2800, img:"https://i.imgur.com/EEOQNNJ.jpg"},
-            {title:"The Void Prophet", price:3500, img:"https://i.imgur.com/GbIHN4w.jpg"},
-            {title:"Multiversal Mind", price:2950, img:"https://i.imgur.com/bYa67XG.jpg"},
-            {title:"Framed Eternity", price:2450, img:"https://i.imgur.com/TBcUee7.jpg"},
-            {title:"Devouring Cosmos", price:3100, img:"https://i.imgur.com/N9cTjGr.jpg"},
-            {title:"Celestial Embrace", price:2700, img:"https://i.imgur.com/Q13UqiZ.jpg"},
-            {title:"Symphony of Madness", price:3800, img:"https://i.imgur.com/rlbRcTr.jpg"}
-        ];
+        document.addEventListener("DOMContentLoaded", function() {
+            const gallery = document.getElementById("shop");
+            const paintings = [
+                {title:"Cosmic Fracture", price:3200, img:"https://i.imgur.com/AF4KG1u.jpg"},
+                {title:"Eye of the Vortex", price:2800, img:"https://i.imgur.com/EEOQNNJ.jpg"},
+                {title:"The Void Prophet", price:3500, img:"https://i.imgur.com/GbIHN4w.jpg"},
+                {title:"Multiversal Mind", price:2950, img:"https://i.imgur.com/bYa67XG.jpg"},
+                {title:"Framed Eternity", price:2450, img:"https://i.imgur.com/TBcUee7.jpg"},
+                {title:"Devouring Cosmos", price:3100, img:"https://i.imgur.com/N9cTjGr.jpg"},
+                {title:"Celestial Embrace", price:2700, img:"https://i.imgur.com/Q13UqiZ.jpg"},
+                {title:"Symphony of Madness", price:3800, img:"https://i.imgur.com/rlbRcTr.jpg"}
+            ];
 
-        const gallery = document.getElementById('gallery');
-        paintings.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `<img src="${p.img}"><div style="padding:25px;"><h3>${p.title}</h3><p style="color:#c084fc;font-size:1.7rem;">$${p.price}</p></div>`;
-            card.onclick = () => alert(`Выбрано: ${p.title} — $${p.price}`);
-            gallery.appendChild(card);
+            paintings.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<img src="${p.img}"><div style="padding:25px;"><h3>${p.title}</h3><p style="color:#c084fc;font-size:1.7rem;">$${p.price}</p></div>`;
+                card.onclick = () => alert(`Выбрано: ${p.title} — $${p.price}`);
+                gallery.appendChild(card);
+            });
         });
     </script>
 </body>
