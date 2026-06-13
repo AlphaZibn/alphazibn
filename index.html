@@ -20,24 +20,57 @@
 </head>
 <body>
 
+    <!-- HEADER -->
     <header style="position:sticky;top:0;background:rgba(5,5,5,0.98);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid #222;">
         <div style="max-width:1700px;margin:0 auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;">
             <h1 class="heading" style="font-size:2.3rem;">AlphaZibn</h1>
-            <nav style="display:flex;gap:40px;">
+            <nav style="display:flex;gap:40px;font-size:1.1rem;">
                 <a href="#shop" style="color:#ddd;text-decoration:none;">Shop</a>
                 <a href="#about" style="color:#ddd;text-decoration:none;">About</a>
+                <a href="#contact" style="color:#ddd;text-decoration:none;">Contact</a>
             </nav>
         </div>
     </header>
 
+    <!-- HERO -->
     <div class="hero">
         <div>
-            <h1 class="heading" style="font-size:6.8rem;">AlphaZibn</h1>
+            <h1 class="heading" style="font-size:6.8rem;margin-bottom:10px;">AlphaZibn</h1>
             <p style="font-size:1.6rem;letter-spacing:6px;">SURREAL VISIONS</p>
         </div>
     </div>
 
+    <!-- GALLERY -->
     <section id="shop" class="gallery"></section>
+
+    <!-- ABOUT -->
+    <section id="about" style="background:#0a0a0a;padding:120px 40px;">
+        <div style="max-width:900px;margin:0 auto;text-align:center;">
+            <h2 class="heading" style="font-size:3.5rem;margin-bottom:40px;">The Artist</h2>
+            <p style="font-size:1.25rem;line-height:1.8;">
+                AlphaZibn is the artistic project of Valerii Kudziev. 
+                All paintings are created using artificial intelligence and then carefully refined by hand.
+            </p>
+            <p style="font-size:1.25rem;line-height:1.8;margin-top:30px;">
+                Each piece is a unique portal into the subconscious — surreal, emotional, and unrepeatable. 
+                I use AI as my brush, while my own vision and emotions give the works their soul.
+            </p>
+            <p style="margin-top:50px;opacity:0.7;">Est. 2026 • Dania Beach, Florida, USA</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" style="background:#000;padding:80px 40px;text-align:center;">
+        <p style="font-size:1.4rem;margin-bottom:20px;">Interested in a painting or commission?</p>
+        <p style="font-size:1.1rem;opacity:0.8;">menyfit@gmail.com</p>
+        
+        <div style="margin:40px 0;font-size:1.8rem;">
+            <a href="https://instagram.com/alphazibin" target="_blank" style="color:#ddd;margin:0 20px;">Instagram</a>
+            <a href="https://vk.com/alphazibin" target="_blank" style="color:#ddd;margin:0 20px;">VK</a>
+        </div>
+        
+        <p style="margin-top:60px;opacity:0.5;">© 2026 AlphaZibn. All artworks are unique.</p>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -69,11 +102,11 @@
                         <p style="color:#d4af37;font-size:1.75rem;margin:8px 0;">$${p.price}</p>
                         ${p.stripe ? 
                             `<button onclick="window.open('${p.stripe}', '_blank')" style="margin-top:12px;width:100%;padding:12px;background:#22d3ee;color:black;border:none;border-radius:6px;cursor:pointer;">Buy Now</button>` : 
-                            `<button onclick="alert('Payment link coming soon')" style="margin-top:12px;width:100%;padding:12px;background:#666;color:white;border:none;border-radius:6px;cursor:pointer;">Buy Now</button>`
+                            `<button onclick="alert('Payment link coming soon for this artwork')" style="margin-top:12px;width:100%;padding:12px;background:#555;color:white;border:none;border-radius:6px;cursor:pointer;">Buy Now</button>`
                         }
                     </div>
                 `;
-                card.querySelector('img').parentElement.onclick = () => alert(`Opened: ${p.title}`);
+                card.querySelector('img').parentElement.onclick = () => alert(`Opened large view: ${p.title}`);
                 gallery.appendChild(card);
             });
         });
